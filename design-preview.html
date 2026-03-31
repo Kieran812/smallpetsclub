@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exotic Pet Care - Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Colors - Warm & Cozy Theme */
+      --color-primary: #E8A598;
+      --color-primary-dark: #D4847A;
+      --color-primary-light: #F8D4CC;
+      --color-secondary: #A8D5BA;
+      --color-secondary-dark: #8BC4A0;
+      --color-secondary-light: #C8E8D4;
+      --color-accent: #F4A261;
+      --color-accent-dark: #E8914D;
+      --color-accent-alt: #E76F51;
+      --color-background: #FDF8F5;
+      --color-background-warm: #FEF3EE;
+      --color-surface: #FFFFFF;
+      --color-text: #4A3728;
+      --color-text-muted: #8B7355;
+      --color-text-light: #FFFFFF;
+      --color-border: #E8DDD5;
+      --color-border-light: #F5EDE8;
+      --color-footer-bg: #4A3728;
+      --color-footer-text: #FDF8F5;
+
+      /* Typography */
+      --font-heading: 'Varela Round', system-ui, sans-serif;
+      --font-body: 'Nunito Sans', system-ui, sans-serif;
+
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(74, 55, 40, 0.05);
+      --shadow-md: 0 4px 12px rgba(74, 55, 40, 0.08);
+      --shadow-lg: 0 8px 24px rgba(74, 55, 40, 0.12);
+      --shadow-xl: 0 12px 32px rgba(74, 55, 40, 0.16);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-background);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Focus States */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* Layout Container */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 0 var(--space-lg);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        padding: 0 var(--space-xl);
+      }
+    }
+
+    /* Announcement Bar */
+    .announcement-bar {
+      background: var(--color-accent);
+      color: var(--color-text-light);
+      padding: 0.625rem var(--space-md);
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    @media (min-width: 1024px) {
+      .header-inner {
+        height: 72px;
+      }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+    @media (min-width: 1024px) {
+      .logo-icon {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    .logo-text {
+      display: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--color-text);
+    }
+
+    @media (min-width: 640px) {
+      .logo-text {
+        display: block;
+      }
+    }
+
+    /* Navigation */
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .nav-desktop {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--color-text);
+      transition: color 200ms ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--color-primary);
+    }
+
+    .nav-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 200ms ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--color-background-warm);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(to bottom, var(--color-background-warm), var(--color-background));
+      padding: var(--space-3xl) 0;
+      overflow: hidden;
+    }
+
+    @media (min-width: 1024px) {
+      .hero {
+        padding: 5rem 0;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3xl);
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content {
+        text-align: left;
+      }
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-lg);
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 3.5rem;
+      }
+    }
+
+    .hero-title span {
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--color-text-muted);
+      max-width: 36rem;
+      margin: 0 auto var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-subtitle {
+        margin: 0 0 var(--space-xl);
+      }
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .hero-buttons {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-buttons {
+        justify-content: flex-start;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: var(--radius-2xl);
+      cursor: pointer;
+      transition: all 200ms ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(232, 165, 152, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232, 165, 152, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-background-warm);
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image {
+      position: relative;
+      max-width: 28rem;
+      width: 100%;
+      border-radius: var(--radius-3xl);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-image {
+        max-width: 32rem;
+      }
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: -1rem;
+      left: -1rem;
+      background: white;
+      padding: var(--space-md);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-floating-card {
+        left: -2rem;
+      }
+    }
+
+    .hero-floating-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: rgba(168, 213, 186, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-secondary);
+    }
+
+    .hero-floating-text strong {
+      display: block;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .hero-floating-text span {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Pet Categories Section */
+    .section {
+      padding: var(--space-3xl) 0;
+    }
+
+    @media (min-width: 1024px) {
+      .section {
+        padding: 5rem 0;
+      }
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+
+    @media (min-width: 1024px) {
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    .section-subtitle {
+      color: var(--color-text-muted);
+    }
+
+    /* Pet Grid */
+    .pet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 1024px) {
+      .pet-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-lg);
+      }
+    }
+
+    .pet-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: var(--space-lg);
+      text-align: center;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .pet-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 1024px) {
+      .pet-card {
+        padding: var(--space-xl);
+      }
+    }
+
+    .pet-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-md);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 200ms ease;
+    }
+
+    @media (min-width: 1024px) {
+      .pet-icon {
+        width: 96px;
+        height: 96px;
+      }
+    }
+
+    .pet-card:hover .pet-icon {
+      transform: scale(1.05);
+    }
+
+    .pet-icon-inner {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+    }
+
+    @media (min-width: 1024px) {
+      .pet-icon-inner {
+        width: 56px;
+        height: 56px;
+      }
+    }
+
+    .pet-name {
+      font-size: 1.125rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-xs);
+    }
+
+    @media (min-width: 1024px) {
+      .pet-name {
+        font-size: 1.25rem;
+      }
+    }
+
+    .pet-guides {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Articles Grid */
+    .articles-section {
+      background: white;
+    }
+
+    .section-header-row {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 640px) {
+      .section-header-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    }
+
+    .view-all-link {
+      color: var(--color-primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      cursor: pointer;
+      transition: color 200ms ease;
+    }
+
+    .view-all-link:hover {
+      color: var(--color-primary-dark);
+    }
+
+    .articles-grid {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .articles-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-xl);
+      }
+    }
+
+    .article-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(232, 221, 213, 0.5);
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .article-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 12rem;
+      object-fit: cover;
+      transition: transform 300ms ease;
+    }
+
+    @media (min-width: 1024px) {
+      .article-image img {
+        height: 14rem;
+      }
+    }
+
+    .article-card:hover .article-image img {
+      transform: scale(1.05);
+    }
+
+    .article-badge {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .article-content {
+      padding: var(--space-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .article-content {
+        padding: var(--space-xl);
+      }
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .article-title {
+      font-size: 1.25rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+      transition: color 200ms ease;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-card:hover .article-title {
+      color: var(--color-primary);
+    }
+
+    .article-excerpt {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: var(--space-md);
+    }
+
+    .article-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: rgba(232, 165, 152, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .author-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    /* Trust Signals */
+    .trust-section {
+      background: var(--color-background-warm);
+      padding: var(--space-xl) 0;
+    }
+
+    @media (min-width: 1024px) {
+      .trust-section {
+        padding: 4rem 0;
+      }
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-xl);
+      }
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto var(--space-md);
+      background: white;
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .trust-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--color-primary);
+    }
+
+    .trust-label {
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-xs);
+    }
+
+    .trust-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3xl);
+      }
+    }
+
+    .about-content {
+      order: 2;
+    }
+
+    @media (min-width: 1024px) {
+      .about-content {
+        order: 1;
+      }
+    }
+
+    .about-image {
+      order: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (min-width: 1024px) {
+      .about-image {
+        order: 2;
+      }
+    }
+
+    .about-image-wrapper {
+      position: relative;
+      max-width: 28rem;
+      width: 100%;
+    }
+
+    .about-image-wrapper img {
+      width: 100%;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .about-title {
+      font-size: 2rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-lg);
+    }
+
+    @media (min-width: 1024px) {
+      .about-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    .about-text {
+      color: var(--color-text-muted);
+      font-size: 1.125rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .about-link {
+      color: var(--color-primary);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      cursor: pointer;
+      transition: color 200ms ease;
+    }
+
+    .about-link:hover {
+      color: var(--color-primary-dark);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding: var(--space-2xl) 0;
+    }
+
+    @media (min-width: 1024px) {
+      .footer {
+        padding: 4rem 0;
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-2xl);
+      }
+    }
+
+    .footer-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-links a {
+      color: rgba(253, 248, 245, 0.7);
+      transition: color 200ms ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-footer-text);
+    }
+
+    .footer-bottom {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid rgba(253, 248, 245, 0.2);
+    }
+
+    .footer-bottom-inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom-inner {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: rgba(253, 248, 245, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 200ms ease;
+    }
+
+    .social-link:hover {
+      background: rgba(253, 248, 245, 0.2);
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: rgba(253, 248, 245, 0.6);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--color-text);
+      border-radius: 2px;
+      transition: all 200ms ease;
+    }
+
+    /* SVG Icons */
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Utilities */
+    .text-muted {
+      color: var(--color-text-muted);
+    }
+
+    /* Mega Menu Dropdown */
+    .mega-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: var(--space-sm);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 200ms ease;
+    }
+
+    .nav-dropdown:hover .mega-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mega-menu-content {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+      padding: var(--space-md);
+      width: 256px;
+    }
+
+    .mega-menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-lg);
+      transition: background 200ms ease;
+    }
+
+    .mega-menu-item:hover {
+      background: var(--color-background-warm);
+    }
+
+    .mega-menu-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mega-menu-text strong {
+      display: block;
+      font-weight: 500;
+      color: var(--color-text);
+      font-size: 0.875rem;
+    }
+
+    .mega-menu-text span {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <p>🐾 New: Complete Hamster Care Guide just added!</p>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Logo -->
+        <div class="logo">
+          <div class="logo-icon">EP</div>
+          <span class="logo-text">Exotic Pet Care</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+          <a href="#" class="nav-link">Home</a>
+          <div class="nav-dropdown">
+            <button class="nav-link nav-dropdown-trigger">
+              Care Guides
+              <svg class="icon icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="mega-menu">
+              <div class="mega-menu-content">
+                <a href="#" class="mega-menu-item">
+                  <div class="mega-menu-icon" style="background: rgba(248, 180, 160, 0.3);">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; background: #F8B4A0;"></div>
+                  </div>
+                  <div class="mega-menu-text">
+                    <strong>Hamster</strong>
+                    <span>24 guides</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-menu-item">
+                  <div class="mega-menu-icon" style="background: rgba(184, 197, 214, 0.3);">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; background: #B8C5D6;"></div>
+                  </div>
+                  <div class="mega-menu-text">
+                    <strong>Chinchilla</strong>
+                    <span>18 guides</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-menu-item">
+                  <div class="mega-menu-icon" style="background: rgba(232, 212, 184, 0.3);">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; background: #E8D4B8;"></div>
+                  </div>
+                  <div class="mega-menu-text">
+                    <strong>Hedgehog</strong>
+                    <span>15 guides</span>
+                  </div>
+                </a>
+                <a href="#" class="mega-menu-item">
+                  <div class="mega-menu-icon" style="background: rgba(197, 214, 184, 0.3);">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; background: #C5D6B8;"></div>
+                  </div>
+                  <div class="mega-menu-text">
+                    <strong>Fancy Rat</strong>
+                    <span>21 guides</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="nav-link">Blog</a>
+          <a href="#" class="nav-link">About</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="header-actions">
+          <button class="icon-btn" aria-label="Search">
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          <button class="icon-btn mobile-menu-btn" aria-label="Menu">
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Expert Care Guides for Your <span>Furry Friends</span>
+          </h1>
+          <p class="hero-subtitle">
+            From hamsters to chinchillas, find everything you need to give your exotic pets the love and care they deserve.
+          </p>
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Explore Care Guides</a>
+            <a href="#" class="btn btn-secondary">Learn More</a>
+          </div>
+        </div>
+        <div class="hero-image-wrapper">
+          <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=600&h=500&fit=crop" alt="Happy hamster on wood shavings">
+          </div>
+          <div class="hero-floating-card">
+            <div class="hero-floating-icon">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <div class="hero-floating-text">
+              <strong>10,000+</strong>
+              <span>Happy Readers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pet Categories Section -->
+  <section class="section" style="background: var(--color-background);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Browse by Pet</h2>
+        <p class="section-subtitle">Choose your little companion</p>
+      </div>
+      <div class="pet-grid">
+        <a href="#" class="pet-card">
+          <div class="pet-icon" style="background: rgba(248, 180, 160, 0.4);">
+            <div class="pet-icon-inner" style="background: #F8B4A0;"></div>
+          </div>
+          <h3 class="pet-name">Hamster</h3>
+          <p class="pet-guides">24 Care Guides</p>
+        </a>
+        <a href="#" class="pet-card">
+          <div class="pet-icon" style="background: rgba(184, 197, 214, 0.4);">
+            <div class="pet-icon-inner" style="background: #B8C5D6;"></div>
+          </div>
+          <h3 class="pet-name">Chinchilla</h3>
+          <p class="pet-guides">18 Care Guides</p>
+        </a>
+        <a href="#" class="pet-card">
+          <div class="pet-icon" style="background: rgba(232, 212, 184, 0.4);">
+            <div class="pet-icon-inner" style="background: #E8D4B8;"></div>
+          </div>
+          <h3 class="pet-name">Hedgehog</h3>
+          <p class="pet-guides">15 Care Guides</p>
+        </a>
+        <a href="#" class="pet-card">
+          <div class="pet-icon" style="background: rgba(197, 214, 184, 0.4);">
+            <div class="pet-icon-inner" style="background: #C5D6B8;"></div>
+          </div>
+          <h3 class="pet-name">Fancy Rat</h3>
+          <p class="pet-guides">21 Care Guides</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Articles -->
+  <section class="section articles-section">
+    <div class="container">
+      <div class="section-header-row">
+        <div class="section-header" style="text-align: left; margin-bottom: 0;">
+          <h2 class="section-title">Latest Guides</h2>
+          <p class="section-subtitle">Fresh care tips for your exotic pets</p>
+        </div>
+        <a href="#" class="view-all-link">
+          View All
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+      <div class="articles-grid">
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=600&h=400&fit=crop" alt="Hamster habitat">
+            <span class="article-badge" style="background: #F8B4A0;">Hamster</span>
+          </div>
+          <div class="article-content">
+            <div class="article-meta">
+              <svg class="icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>5 min read</span>
+              <span>·</span>
+              <span>Mar 28, 2026</span>
+            </div>
+            <h3 class="article-title">How to Set Up the Perfect Hamster Habitat</h3>
+            <p class="article-excerpt">Creating a safe and enriching environment for your furry friend starts with the right habitat setup.</p>
+            <div class="article-author">
+              <div class="author-avatar">EP</div>
+              <span class="author-name">Exotic Pet Care</span>
+            </div>
+          </div>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://images.unsplash.com/photo-1591382386627-349b692688ff?w=600&h=400&fit=crop" alt="Chinchilla">
+            <span class="article-badge" style="background: #B8C5D6;">Chinchilla</span>
+          </div>
+          <div class="article-content">
+            <div class="article-meta">
+              <svg class="icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>4 min read</span>
+              <span>·</span>
+              <span>Mar 25, 2026</span>
+            </div>
+            <h3 class="article-title">Chinchilla Dust Baths: Everything You Need to Know</h3>
+            <p class="article-excerpt">Your chinchilla needs regular dust baths to maintain their beautiful coat and skin health.</p>
+            <div class="article-author">
+              <div class="author-avatar">EP</div>
+              <span class="author-name">Exotic Pet Care</span>
+            </div>
+          </div>
+        </article>
+        <article class="article-card">
+          <div class="article-image">
+            <img src="https://images.unsplash.com/photo-1497752531616-c3afd9760a11?w=600&h=400&fit=crop" alt="Hedgehog">
+            <span class="article-badge" style="background: #E8D4B8;">Hedgehog</span>
+          </div>
+          <div class="article-content">
+            <div class="article-meta">
+              <svg class="icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>6 min read</span>
+              <span>·</span>
+              <span>Mar 22, 2026</span>
+            </div>
+            <h3 class="article-title">Taming Your Hedgehog: A Step-by-Step Guide</h3>
+            <p class="article-excerpt">Building trust with your hedgehog takes patience, but the bond you will create is worth it.</p>
+            <div class="article-author">
+              <div class="author-avatar">EP</div>
+              <span class="author-name">Exotic Pet Care</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Signals -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h4 class="trust-label">Expert Guides</h4>
+          <p class="trust-desc">Written by pet care specialists</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h4 class="trust-label">Updated Weekly</h4>
+          <p class="trust-desc">Fresh content every week</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h4 class="trust-label">Vet Reviewed</h4>
+          <p class="trust-desc">Approved by veterinarians</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h4 class="trust-label">Community Loved</h4>
+          <p class="trust-desc">10,000+ happy readers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" style="background: white;">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <h2 class="about-title">About Exotic Pet Care</h2>
+          <p class="about-text">
+            We are a team of passionate pet lovers and animal care experts dedicated to providing the best possible care information for exotic pet owners.
+          </p>
+          <p class="about-text">
+            Our guides are thoroughly researched, vet-approved, and regularly updated to ensure your furry (or spiky) friends get the love and care they deserve.
+          </p>
+          <a href="#" class="about-link">
+            Learn More About Us
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+        <div class="about-image">
+          <div class="about-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=500&h=400&fit=crop" alt="Team caring for pets">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4 class="footer-title">Pet Care</h4>
+          <ul class="footer-links">
+            <li><a href="#">Hamster Care</a></li>
+            <li><a href="#">Chinchilla Care</a></li>
+            <li><a href="#">Hedgehog Care</a></li>
+            <li><a href="#">Fancy Rat Care</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <div class="footer-logo">
+            <div class="logo-icon" style="background: var(--color-primary);">EP</div>
+            <span class="logo-text" style="color: var(--color-footer-text);">Exotic Pet Care</span>
+          </div>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Pinterest">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+            </a>
+          </div>
+          <p class="footer-copyright">© 2026 Exotic Pet Care. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
