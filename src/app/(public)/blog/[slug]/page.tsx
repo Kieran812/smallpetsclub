@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Calendar, ArrowLeft, ChevronLeft, ChevronRight, User } from 'lucide-react';
 
+const DATE_LOCALE = 'en-US';
+
 // Mock data for blog posts
 const mockPosts = [
   {
@@ -310,7 +312,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {/* Date */}
             <div className="flex items-center gap-2 text-[#8B7355]">
               <Calendar className="w-5 h-5" />
-              <span>{new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span>{new Date(post.published_at).toLocaleDateString(DATE_LOCALE, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             </div>
 
             {/* Read Time */}
@@ -488,10 +490,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             <div>
               <h4 className="font-heading font-bold text-lg mb-4">Pet Care</h4>
               <ul className="space-y-2.5">
-                <li><a href="/category/hamster" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Hamster Care</a></li>
-                <li><a href="/category/chinchilla" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Chinchilla Care</a></li>
-                <li><a href="/category/hedgehog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Hedgehog Care</a></li>
-                <li><a href="/category/fancy-rat" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Fancy Rat Care</a></li>
+                <li><Link href="/category/hamster" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Hamster Care</Link></li>
+                <li><Link href="/category/chinchilla" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Chinchilla Care</Link></li>
+                <li><Link href="/category/hedgehog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Hedgehog Care</Link></li>
+                <li><Link href="/category/fancy-rat" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Fancy Rat Care</Link></li>
               </ul>
             </div>
 
@@ -499,10 +501,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             <div>
               <h4 className="font-heading font-bold text-lg mb-4">Resources</h4>
               <ul className="space-y-2.5">
-                <li><a href="/blog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Blog</a></li>
-                <li><a href="/about" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">About Us</a></li>
-                <li><a href="/contact" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Contact</a></li>
-                <li><a href="/faq" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">FAQs</a></li>
+                <li><Link href="/blog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Blog</Link></li>
+                <li><Link href="/about" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">About Us</Link></li>
+                <li><Link href="/contact" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Contact</Link></li>
+                <li><Link href="/faq" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">FAQs</Link></li>
               </ul>
             </div>
 
@@ -510,9 +512,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             <div>
               <h4 className="font-heading font-bold text-lg mb-4">Legal</h4>
               <ul className="space-y-2.5">
-                <li><a href="/privacy" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Privacy Policy</a></li>
-                <li><a href="/terms" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Terms of Use</a></li>
-                <li><a href="/cookies" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer">Cookie Policy</a></li>
+                <li><Link href="/privacy" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Terms of Use</Link></li>
+                <li><Link href="/cookies" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Cookie Policy</Link></li>
               </ul>
             </div>
           </div>
