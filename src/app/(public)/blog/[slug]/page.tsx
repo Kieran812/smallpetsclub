@@ -3,8 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Calendar, ArrowLeft, ChevronLeft, ChevronRight, User } from 'lucide-react';
 
-const DATE_LOCALE = 'en-US';
-
 // Mock data for blog posts
 const mockPosts = [
   {
@@ -152,12 +150,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return {
-      title: 'Post Not Found | Exotic Pet Care',
+      title: 'Post Not Found | SmallPets Club',
     };
   }
 
   return {
-    title: `${post.title} | Exotic Pet Care`,
+    title: `${post.title} | SmallPets Club`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -207,45 +205,17 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const { prevPost, nextPost } = getAdjacentPosts(slug);
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5]">
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-[#FDF8F5] border-b border-[#E8DDD5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-[72px]">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 cursor-pointer">
-              <div className="w-10 h-10 rounded-full bg-[#E8A598] flex items-center justify-center">
-                <span className="text-white font-heading font-bold text-lg">EP</span>
-              </div>
-              <span className="font-heading font-bold text-xl text-[#4A3728] hidden sm:block">
-                Exotic Pet Care
-              </span>
-            </Link>
-
-            {/* Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
-              <Link href="/" className="text-[#4A3728] hover:text-[#E8A598] font-medium transition-colors cursor-pointer">
-                Home
-              </Link>
-              <Link href="/blog" className="text-[#E8A598] font-medium transition-colors cursor-pointer">
-                Blog
-              </Link>
-              <Link href="/about" className="text-[#4A3728] hover:text-[#E8A598] font-medium transition-colors cursor-pointer">
-                About
-              </Link>
-            </nav>
-
-            {/* Back to Blog */}
-            <Link
-              href="/blog"
-              className="flex items-center gap-2 text-[#4A3728] hover:text-[#E8A598] font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2 rounded"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Back to Blog</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="bg-[#FDF8F5]">
+      {/* Subtle Back to Blog Link */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-1.5 text-sm text-[#8B7355] hover:text-[#E8A598] transition-colors cursor-pointer"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Back to Blog
+        </Link>
+      </div>
 
       {/* Hero Section */}
       <section className="relative">
@@ -264,7 +234,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           {/* Category Badge */}
           <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
             <span
-              className="px-4 py-2 rounded-full text-sm font-semibold text-white shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2"
+              className="px-4 py-2 rounded-full text-sm font-semibold text-white shadow-lg"
               style={{ backgroundColor: post.categoryColor }}
             >
               {post.category}
@@ -312,7 +282,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {/* Date */}
             <div className="flex items-center gap-2 text-[#8B7355]">
               <Calendar className="w-5 h-5" />
-              <span>{new Date(post.published_at).toLocaleDateString(DATE_LOCALE, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span>{new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             </div>
 
             {/* Read Time */}
@@ -329,7 +299,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           <div className="lg:grid lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Article Content */}
-            <article className="lg:col-span-2 max-w-[720px]">
+            <article className="lg:col-span-2">
               <div
                 className="prose prose-lg max-w-none
                   prose-headings:font-heading prose-headings:text-[#4A3728]
@@ -362,7 +332,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                         <Link
                           key={relatedPost.slug}
                           href={`/blog/${relatedPost.slug}`}
-                          className="block group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2 rounded-xl"
+                          className="block group cursor-pointer"
                         >
                           <div className="relative w-full h-32 rounded-xl overflow-hidden mb-2">
                             <Image
@@ -389,7 +359,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 <div className="mt-6 bg-white rounded-3xl p-6 border border-[#E8DDD5] shadow-sm">
                   <Link
                     href="/blog"
-                    className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-[#E8A598] to-[#D4847A] text-white font-semibold rounded-2xl shadow-lg shadow-[#E8A598]/20 hover:shadow-xl hover:shadow-[#E8A598]/30 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2"
+                    className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-[#E8A598] to-[#D4847A] text-white font-semibold rounded-2xl shadow-lg shadow-[#E8A598]/20 hover:shadow-xl hover:shadow-[#E8A598]/30 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     Back to Blog
@@ -410,7 +380,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   <Link
                     key={relatedPost.slug}
                     href={`/blog/${relatedPost.slug}`}
-                    className="block group cursor-pointer bg-[#FEF3EE] rounded-2xl p-4 border border-[#E8DDD5] hover:shadow-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2"
+                    className="block group cursor-pointer bg-[#FEF3EE] rounded-2xl p-4 border border-[#E8DDD5] hover:shadow-md transition-all duration-200"
                   >
                     <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3">
                       <Image
@@ -443,7 +413,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {prevPost ? (
               <Link
                 href={`/blog/${prevPost.slug}`}
-                className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-[#E8DDD5] hover:shadow-md hover:border-[#E8A598] transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2"
+                className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-[#E8DDD5] hover:shadow-md hover:border-[#E8A598] transition-all duration-200 cursor-pointer"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E8A598]/10 flex items-center justify-center group-hover:bg-[#E8A598]/20 transition-colors">
                   <ChevronLeft className="w-5 h-5 text-[#E8A598]" />
@@ -463,7 +433,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {nextPost ? (
               <Link
                 href={`/blog/${nextPost.slug}`}
-                className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-[#E8DDD5] hover:shadow-md hover:border-[#E8A598] transition-all duration-200 cursor-pointer sm:text-right focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2"
+                className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-[#E8DDD5] hover:shadow-md hover:border-[#E8A598] transition-all duration-200 cursor-pointer sm:text-right"
               >
                 <div className="flex-1 min-w-0 sm:order-2">
                   <p className="text-xs text-[#8B7355] mb-1 sm:text-right">Next</p>
@@ -481,60 +451,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-[#4A3728] text-[#FDF8F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Column 1: Pet Care */}
-            <div>
-              <h4 className="font-heading font-bold text-lg mb-4">Pet Care</h4>
-              <ul className="space-y-2.5">
-                <li><Link href="/category/hamster" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Hamster Care</Link></li>
-                <li><Link href="/category/chinchilla" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Chinchilla Care</Link></li>
-                <li><Link href="/category/hedgehog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Hedgehog Care</Link></li>
-                <li><Link href="/category/fancy-rat" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Fancy Rat Care</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 2: Resources */}
-            <div>
-              <h4 className="font-heading font-bold text-lg mb-4">Resources</h4>
-              <ul className="space-y-2.5">
-                <li><Link href="/blog" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Blog</Link></li>
-                <li><Link href="/about" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">About Us</Link></li>
-                <li><Link href="/contact" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Contact</Link></li>
-                <li><Link href="/faq" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">FAQs</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Legal */}
-            <div>
-              <h4 className="font-heading font-bold text-lg mb-4">Legal</h4>
-              <ul className="space-y-2.5">
-                <li><Link href="/privacy" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Terms of Use</Link></li>
-                <li><Link href="/cookies" className="text-[#FDF8F5]/70 hover:text-[#FDF8F5] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A598] focus-visible:ring-offset-2">Cookie Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className="mt-12 pt-8 border-t border-[#FDF8F5]/20">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              {/* Logo + Social */}
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#E8A598] flex items-center justify-center">
-                  <span className="text-white font-heading font-bold">EP</span>
-                </div>
-                <p className="text-sm text-[#FDF8F5]/60">
-                  © 2026 Exotic Pet Care. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

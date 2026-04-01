@@ -1,20 +1,21 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Exotic Pet Care | Expert Care Guides for Your Furry Friends',
+  title: 'SmallPets Club | Expert Care Guides for Your Furry Friends',
   description: 'From hamsters to chinchillas, find everything you need to give your exotic pets the love and care they deserve. Expert-approved care guides, vet-reviewed content, and a supportive community.',
   keywords: ['exotic pet care', 'hamster care', 'chinchilla care', 'hedgehog care', 'fancy rat care', 'pet guides', 'pet health'],
-  authors: [{ name: 'Exotic Pet Care' }],
+  authors: [{ name: 'SmallPets Club' }],
   openGraph: {
-    title: 'Exotic Pet Care | Expert Care Guides',
+    title: 'SmallPets Club | Expert Care Guides',
     description: 'Expert care guides for hamsters, chinchillas, hedgehogs, and fancy rats.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Exotic Pet Care',
+    title: 'SmallPets Club',
     description: 'Expert care guides for your exotic pets.',
   },
 };
@@ -31,7 +32,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
-        {children}
+        <ClerkProvider>{children}</ClerkProvider>
       </body>
     </html>
   );

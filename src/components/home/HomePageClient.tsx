@@ -81,7 +81,7 @@ export default function HomePageClient() {
                 <span className="text-white font-heading font-bold text-lg">EP</span>
               </div>
               <span className="font-heading font-bold text-xl text-[#4A3728] hidden sm:block">
-                Exotic Pet Care
+                SmallPets Club
               </span>
             </div>
 
@@ -360,7 +360,7 @@ export default function HomePageClient() {
                       <span className="text-xs font-semibold text-[#E8A598]">EP</span>
                     </div>
                     <span className="text-sm font-medium text-[#4A3728]">
-                      Exotic Pet Care
+                      SmallPets Club
                     </span>
                   </div>
                 </div>
@@ -414,7 +414,7 @@ export default function HomePageClient() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <h2 className="font-heading text-3xl lg:text-4xl font-bold text-[#4A3728] mb-6">
-                About Exotic Pet Care
+                About SmallPets Club
               </h2>
               <p className="text-[#8B7355] text-lg mb-4">
                 We are a team of passionate pet lovers and animal care experts dedicated to providing the best possible care information for exotic pet owners.
@@ -522,7 +522,7 @@ export default function HomePageClient() {
 
               {/* Copyright */}
               <p className="text-sm text-[#FDF8F5]/60">
-                © 2026 Exotic Pet Care. All rights reserved.
+                © 2026 SmallPets Club. All rights reserved.
               </p>
             </div>
           </div>

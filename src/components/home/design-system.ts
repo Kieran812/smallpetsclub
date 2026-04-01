@@ -1,5 +1,5 @@
 /**
- * Exotic Pet Care - Design System Configuration
+ * SmallPets Club - Design System Configuration
  *
  * This file exports all design tokens for the project.
  * Used with Tailwind CSS v4 via CSS custom properties.
