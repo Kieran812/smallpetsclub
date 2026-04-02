@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { JsonLd } from '@/components/seo/JsonLd';
+
+export const revalidate = 86400; // 24 hours ISR
 import { Clock, Calendar, ArrowLeft, ChevronLeft, ChevronRight, User } from 'lucide-react';
 
 // Mock data for blog posts
@@ -155,15 +158,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${post.title} | SmallPets Club`,
+    title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [post.featured_image_url],
+      images: [{ url: post.featured_image_url, width: 1200, height: 630 }],
       type: 'article',
       publishedTime: post.published_at,
       authors: [post.author.name],
+    },
+    alternates: {
+      canonical: `/blog/${post.slug}`,
     },
   };
 }
@@ -204,8 +210,43 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const relatedPosts = getRelatedPosts(slug, post.category);
   const { prevPost, nextPost } = getAdjacentPosts(slug);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.featured_image_url,
+    datePublished: post.published_at,
+    dateModified: post.published_at,
+    author: {
+      '@type': 'Person',
+      name: post.author.name,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SmallPets Club',
+      url: 'https://www.smallpetsclub.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.smallpetsclub.com/blog/${post.slug}`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.smallpetsclub.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.smallpetsclub.com/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `https://www.smallpetsclub.com/blog/${post.slug}` },
+    ],
+  };
+
   return (
     <div className="bg-[#FDF8F5]">
+      <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
       {/* Subtle Back to Blog Link */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Link

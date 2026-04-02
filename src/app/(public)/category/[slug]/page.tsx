@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+
+export const revalidate = 86400; // 24 hours ISR
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Calendar, ArrowLeft } from 'lucide-react';
@@ -231,11 +233,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${category.name} Care Guides | SmallPets Club`,
+    title: `${category.name} Care Guides`,
     description: category.description,
     openGraph: {
       title: `${category.name} Care Guides | SmallPets Club`,
       description: category.description,
+    },
+    alternates: {
+      canonical: `/category/${slug}`,
     },
   };
 }
