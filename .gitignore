@@ -29,3 +29,6 @@ npm-debug.log*
 # Worktrees
 .worktrees/
 .vercel
+
+# clerk configuration (can include secrets)
+/.clerk/

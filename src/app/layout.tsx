@@ -1,6 +1,11 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@/components/shared/google-analytics';
 import './globals.css';
+
+// Check if Clerk is configured
+const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder');
 
 export const metadata: Metadata = {
   title: 'SmallPets Club | Expert Care Guides for Your Furry Friends',
@@ -18,6 +23,13 @@ export const metadata: Metadata = {
     title: 'SmallPets Club',
     description: 'Expert care guides for your exotic pets.',
   },
+  // Google Search Console verification
+  // Set NEXT_PUBLIC_GSC_VERIFICATION in .env.local after getting the code from GSC
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION && {
+    verification: {
+      google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    },
+  }),
 };
 
 export default function RootLayout({
@@ -32,7 +44,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
-        <ClerkProvider>{children}</ClerkProvider>
+        {isClerkConfigured ? (
+          <ClerkProvider>{children}</ClerkProvider>
+        ) : (
+          <>{children}</>
+        )}
+        <GoogleAnalytics />
       </body>
     </html>
   );
